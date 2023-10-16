@@ -1,23 +1,24 @@
 package plugin.enemydown.command;
 
-import java.util.List;
-import java.util.SplittableRandom;
-import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
+        import java.util.List;
+        import java.util.SplittableRandom;
+        import org.bukkit.Location;
+        import org.bukkit.command.Command;
+        import org.bukkit.command.CommandSender;
+        import org.bukkit.entity.EntityType;
+        import org.bukkit.entity.Player;
+        import org.bukkit.event.Listener;
 
-public class EnemySpawnCommand extends BasaCommand implements Listener {
+public class EnemySpawnCommand extends BaseCommand implements Listener {
 
     @Override
-    public boolean onExecutePlayerCommand(Player player) {
+    public boolean onExecutePlayerCommand(Player player, Command command, String label, String[] args) {
         player.getWorld().spawnEntity(getEnemySpawnLocation(player), getEnemy());
         return true;
     }
 
     @Override
-    public boolean onExecuteNPCCommand(CommandSender sender) {
+    public boolean onExecuteNPCCommand(CommandSender sender, Command command, String label, String[] args) {
         return false;
     }
 
@@ -45,7 +46,7 @@ public class EnemySpawnCommand extends BasaCommand implements Listener {
      * @return 敵
      */
     private EntityType getEnemy() {
-        List<EntityType> enemyList = List.of(EntityType.ZOMBIE, EntityType.SKELETON, EntityType.WITCH);
+        List<EntityType> enemyList = List.of(EntityType.ZOMBIE, EntityType.SKELETON, EntityType.SPIDER, EntityType.WITCH);
         return enemyList.get(new SplittableRandom().nextInt(enemyList.size()));
     }
 }
